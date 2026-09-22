@@ -156,7 +156,8 @@
     {% endif %}
     <div class="col mb-4">
       <div class="card {% if img.selected %}border-success border-3{% endif %}">
-        <img src="{{ img_url }}" class="card-img-top">
+        <img src="{{ img_url }}" class="card-img-top" role="button" style="cursor: zoom-in;"
+             onclick="showImagePreview('{{ img_url|e }}')">
         <div class="card-body text-center">
           {% if img.selected %}
             <span class="badge bg-success mb-2">✓ Actuellement sélectionné</span><br>
@@ -198,4 +199,24 @@
     <button class="btn btn-secondary btn-sm">Go</button>
   </form>
 </div>
+
+<div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center pt-0">
+        <img id="imagePreviewModalImg" src="" class="img-fluid" style="max-height: 85vh;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showImagePreview(url) {
+  document.getElementById('imagePreviewModalImg').src = url;
+  new bootstrap.Modal(document.getElementById('imagePreviewModal')).show();
+}
+</script>
 {% endblock %}
